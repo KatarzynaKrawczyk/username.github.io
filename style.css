@@ -24,8 +24,9 @@ body {
 .card{
     margin: .5rem;
     padding: .5rem;
-    width: 10rem;
-    height: 10rem;
+    width: 5rem;
+    height: 5rem;
+    
     background-color: black;
 }
 .card-deck {
@@ -34,11 +35,12 @@ body {
 }
 /*Card backside*/
 .card-body{
+    border:none;
     background-size: cover;
 }
 .star{
     background-image: url("assets/img/angel.png");
-    /*background-color: red;*/
+    background-color: red;
 }
 .blue{
     background-image: url("assets/img/donald.png");
@@ -67,10 +69,30 @@ body {
     z-index: 2;
     background-image: url('assets/img/falling-star.png');
     background-color: black;
-   /* background-image: url("falling-star.png");
-    background-size: cover;
-    */
 }
 .off {
     background-color:black;
 }
+
+@media (min-width: 576px) { 
+    .card{
+        width: 10rem;
+        height: 10rem;
+    }
+ }
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) { ... }
+
+/*Large devices (desktops, 992px and up)*/
+
+@media (min-width: 992px) { 
+    .card{
+        width: 14rem;
+        height: 14rem;
+    }
+ }
+
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) { ... }
+
