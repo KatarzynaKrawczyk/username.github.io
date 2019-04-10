@@ -1,0 +1,50 @@
+.square{
+    background-color: blue;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+}
+
+
+/*display*/
+
+.card{
+    width: 5rem;
+    height: 5rem;
+}
+.card-deck {
+    display: flex;
+    flex-direction: row;
+}
+/*Card backside*/
+
+.red{
+    background-color: red;
+}
+.blue{
+    background-color: blue;
+}
+.aqua{
+    background-color: aqua;
+}
+.gold{
+    background-color:gold;
+}
+.gray{
+    background-color: gray;
+}
+.black{
+    background-color: rgb(3, 78, 0);
+}
+
+/*Card state*/
+
+.hidden{
+    background-color: black;
+   /* background-image: url("falling-star.png");
+    background-size: cover;
+    */
+}
+.off {
+    background-color: #eee;
+}
