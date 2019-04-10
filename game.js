@@ -1,9 +1,22 @@
 
+function main (){
+    const $startButton = document.getElementById('startButton');
+    $startButton.addEventListener('click', function(){
+        hideElement();
+        prepareBoard();
+    } )
+}
+
+function hideElement(){
+    let introSection = document.getElementById('intro');
+    introSection.classList.add('d-none');
+}
+
 const CardsColor = [
     "star", "blue",
      "aqua", "gold", "gray", "black", 
     "star", "blue",
-     "aqua", "gold", "gray", "black"
+   "aqua", "gold", "gray", "black"
 ];
 
 let cards = document.getElementsByClassName('card-body');
@@ -20,12 +33,11 @@ const activeCards = [];
 const gamePairs = cards.length/2;
 let gameResult = 0;
 
-const clickCard = function(){
+function clickCard (){
     console.log('clickCard');
     activeCard = this;
 
-if (activeCard == activeCards[0]) {return;};
-
+    if (activeCard == activeCards[0]) {return;};
 
     activeCard.classList.remove('hidden'); 
 //after 1 click
@@ -52,8 +64,9 @@ if (activeCard == activeCards[0]) {return;};
 //end of game                    
                     if (gameResult == gamePairs){
                         const endTime = new Date().getTime();
-                        const gameTime = (endTime-startTime)/1000
-                        alert(`You Won! your time score is ${gameTime} seconds`)
+                        const gameTime = (endTime-startTime)/1000;
+                        alert('s');
+                        swal(`You Won! your time score is ${gameTime} seconds`);
                         location.reload();
                     }
                 }
@@ -64,26 +77,23 @@ if (activeCard == activeCards[0]) {return;};
                 activeCard = "";
                 activeCards.length = 0;
                 cards.forEach(card => card.addEventListener('click', clickCard));
-            },1000)
+            },300)
     }
 
 }
 
-const init = function() {
+function prepareBoard () {
     cards.forEach(card  => {
         const position = Math.floor(Math.random() * CardsColor.length);
         card.classList.add(CardsColor[position]);
         CardsColor.splice(position, 1);
-    })
-    setTimeout(function () {
+        })
+        setTimeout(function () {
         cards.forEach(card => {
             card.classList.add('hidden')
             card.addEventListener('click', clickCard)
         })        
-    }, 1000)
+    }, 500)
 };
 
-init();
-
-
-
+document.addEventListener('DOMContentLoaded', main);
