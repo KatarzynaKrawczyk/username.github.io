@@ -1,23 +1,28 @@
-
+const CardsColor = [
+    "star", "blue",
+     //"aqua", "gold", "gray", "black", 
+    "star", "blue",
+   //"aqua", "gold", "gray", "black"
+];
+let timesClicked = 0;
 function main (){
     const $startButton = document.getElementById('startButton');
     $startButton.addEventListener('click', function(){
         hideElement();
         prepareBoard();
+        showElement();
     } )
 }
-
 function hideElement(){
     let introSection = document.getElementById('intro');
     introSection.classList.add('d-none');
 }
-
-const CardsColor = [
-    "star", "blue",
-     "aqua", "gold", "gray", "black", 
-    "star", "blue",
-   "aqua", "gold", "gray", "black"
-];
+function showElement(){
+    let board = document.getElementById('board');
+    board.classList.remove('d-none');
+}
+let clickCounter = document.getElementById('clickCounter');
+let gameTimeCounter = document.getElementById('gameTimeCounter');
 
 let cards = document.getElementsByClassName('card-body');
 cards = [...cards];
@@ -34,15 +39,18 @@ const gamePairs = cards.length/2;
 let gameResult = 0;
 
 function clickCard (){
-    console.log('clickCard');
+    console.log(timesClicked);
     activeCard = this;
 
     if (activeCard == activeCards[0]) {return;};
 
     activeCard.classList.remove('hidden'); 
+    timesClicked++;
+    clickCounter.innerHTML = (timesClicked+' times');
+
 //after 1 click
     if(activeCards.length === 0) {
-        activeCards[0] =  activeCard;
+        activeCards[0] = activeCard;
         console.log('after 1 click');
         return;
     }
@@ -54,19 +62,24 @@ function clickCard (){
             activeCards[1] = activeCard;
             setTimeout(function(){
                 if (activeCards[0].className == activeCards[1].className){
-                    console.log('paired');
                     activeCards.forEach(card => card.classList.add('off'));
-                    gameResult++;
+                    gameResult=+1;
+                    console.log(gameResult+' paired');
 //mute paired cards
                     cards = cards.filter(card => !card.classList.contains('off'));
-                    console.log(cards.length+' pairs left');
-
+                    
+                    console.log(cards.length+' cards left');
+                    console.log(activeCards.length+' cards active');
+                    gameTimeCounter.innerHTML = (gameResult+' paired');
 //end of game                    
                     if (gameResult == gamePairs){
+                        debugger;
                         const endTime = new Date().getTime();
-                        const gameTime = (endTime-startTime)/1000;
-                        alert('s');
-                        swal(`You Won! your time score is ${gameTime} seconds`);
+                        let gameTime = (endTime-startTime)/1000;
+                     
+                        console.log(gameTime);
+                        gameTimeCounter.innerHTML = ('your time score is ');
+    //                    swal(`You Won! your time score is ${gameTime} seconds`);
                         location.reload();
                     }
                 }

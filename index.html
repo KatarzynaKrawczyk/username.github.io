@@ -10,54 +10,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
-    <div class="container">
-        <h1>memory game</h1>
+    <div class="container mx-auto">
+        <h1 class="text-center">Memory game</h1>
         <div class ="starter-template" id="intro">
             <p class="lead">There are 12 cards back-side-up here. After reverse try to pick up pairs of cards below. We measure time score so hurry!
                 <br> At the end let's compare time scores!</p>
                 <p>Ready?</p>
-                <button class="btn btn-outline-secondary" type="button" id="startButton">Start game</button>
+                <button class="btn btn-primary" type="button" id="startButton">Start game</button>
         </div>
     </div>   
-    <div class="container">
-        <div class="row">
-            <div class="card">
+    <div class="container d-none" id ="board">
+        <div class="row" id ="board">
+           <!-- <div class="card mx-auto">
                 <div class="card-body"></div>
             </div>
-            <div class="card">
+            <div class="card mx-auto">
                 <div class="card-body"></div>
             </div>
-            <div class="card">
+            <div class="card mx-auto">
                 <div class="card-body"></div>
             </div>
-            <div class="card">
+            <div class="card mx-auto">
                 <div class="card-body"></div>
             </div>
-            <div class="card">
+            <div class="card mx-auto">
                 <div class="card-body"></div>
             </div>
-            <div class="card">
+            <div class="card mx-auto">
                 <div class="card-body"></div>
             </div>
-            <div class="card">
+            <div class="card mx-auto">
                 <div class="card-body"></div>
             </div>
-            <div class="card">
+            <div class="card mx-auto">
                 <div class="card-body"></div>
             </div>
-            <div class="card">
+            -->
+            <div class="card mx-auto">
                 <div class="card-body"></div>
             </div>
-            <div class="card">
+            <div class="card mx-auto">
                 <div class="card-body"></div>
             </div>
-            <div class="card">
+            <div class="card mx-auto">
                 <div class="card-body"></div>
             </div>
-            <div class="card">
+            <div class="card mx-auto">
                 <div class="card-body"></div>
             </div>
         </div>
+        <h3>
+            <small class="text-muted">you clicked</small>
+            <p id = "clickCounter"></p>
+            <p id ="gameTimeCounter"></p>
+        </h3>
+        <h3>
+            <small class="text-muted">your time score is</small>
+            <p id ="gameTimeCounter"></p>
+        </h3>
     </div>
     <script src="game.js"></script>
 </body>
