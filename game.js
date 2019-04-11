@@ -78,13 +78,22 @@ function clickCard (){
                     console.log(activeCards.length+' cards active');
                     gameTimeCounter.innerHTML = (gameResult+' paired');
 //end of game                    
-                    if (gameResult == gamePairs){
-                        debugger;
+                    if(cards.length ===      0){
+                 //    (gameResult == gamePairs){
+                        
                         const endTime = new Date().getTime();
                         let gameTime = (endTime-startTime)/1000;
                      
                         console.log(gameTime);
-                        gameTimeCounter.innerHTML = ('your time score is ');
+                       
+                        function Round(n, k)
+                            {
+                                var factor = Math.pow(10, k);
+                                return Math.round(n*factor)/factor;
+                            }
+                            
+                            gameTimeCounter.innerHTML = ('your time score is '+(Round(gameTime, 0))+' seconds' );
+debugger;
     //                    swal(`You Won! your time score is ${gameTime} seconds`);
                         location.reload();
                     }
