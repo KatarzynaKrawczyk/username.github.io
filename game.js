@@ -6,8 +6,14 @@ const CardsColor = [
 ];
 let timesClicked = 0;
 function main (){
-    const $startButton = document.getElementById('startButton');
-    $startButton.addEventListener('click', function(){
+    const $startButtonHard = document.getElementById('startButtonHard');
+    $startButtonHard.addEventListener('click', function(){
+        hideElement();
+        prepareBoard();
+        showElement();
+    } )
+    const $startButtonEasy = document.getElementById('startButtonEasy');
+    $startButtonEasy.addEventListener('click', function(){
         hideElement();
         prepareBoard();
         showElement();
@@ -25,6 +31,7 @@ let clickCounter = document.getElementById('clickCounter');
 let gameTimeCounter = document.getElementById('gameTimeCounter');
 
 let cards = document.getElementsByClassName('card-body');
+
 cards = [...cards];
 console.log(cards);
 console.log(cards.length);
@@ -39,7 +46,6 @@ const gamePairs = cards.length/2;
 let gameResult = 0;
 
 function clickCard (){
-    console.log(timesClicked);
     activeCard = this;
 
     if (activeCard == activeCards[0]) {return;};
@@ -94,7 +100,7 @@ function clickCard (){
     }
 
 }
-
+//2tables: CardsColorH CardsColorE -> create element*CardsColorE(H).length
 function prepareBoard () {
     cards.forEach(card  => {
         const position = Math.floor(Math.random() * CardsColor.length);
