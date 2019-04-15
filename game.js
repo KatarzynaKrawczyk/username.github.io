@@ -1,21 +1,63 @@
-const CardsColor = [
-    "star", "blue",
-     //"aqua", "gold", "gray", "black", 
-    "star", "blue",
-   //"aqua", "gold", "gray", "black"
-];
 let timesClicked = 0;
+const CardsColor = [
+    "star", "blue", 
+   
+];
+
+
+//2tables: CardsColorH CardsColorE -> create element*CardsColorE(H).length
+function prepareBoardH () {
+    
+    CardsColor.push( "aqua", "gold", "gray", "black");
+    const CardsColorCopy = CardsColor.slice();
+    Array.prototype.push.apply(CardsColor,CardsColorCopy);
+    console.log(CardsColor);
+    debugger;
+    cards.forEach(card  => {
+        const position = Math.floor(Math.random() * CardsColor.length);
+        card.classList.add(CardsColor[position]);
+        CardsColor.splice(position, 1);
+        })
+        setTimeout(function () {
+        cards.forEach(card => {
+            card.classList.add('hidden')
+            card.addEventListener('click', clickCard)
+        })        
+    }, 500)
+};
+function prepareBoardE () {
+    const CardsColorCopy = CardsColor.slice();
+Array.prototype.push.apply(CardsColor,CardsColorCopy);
+console.log(CardsColor);
+    debugger;
+    cards.forEach(card  => {
+        const position = Math.floor(Math.random() * CardsColor.length);
+        card.classList.add(CardsColor[position]);
+        console.log(CardsColor);
+
+        CardsColor.splice(position, 1);
+        console.log(CardsColor);
+        })
+        setTimeout(function () {
+        cards.forEach(card => {
+            card.classList.add('hidden')
+            card.addEventListener('click', clickCard)
+        })        
+    }, 2000)
+};
+
+
 function main (){
     const $startButtonHard = document.getElementById('startButtonHard');
     $startButtonHard.addEventListener('click', function(){
         hideElement();
-        prepareBoard();
+        prepareBoardH();
         showElement();
     } )
     const $startButtonEasy = document.getElementById('startButtonEasy');
     $startButtonEasy.addEventListener('click', function(){
         hideElement();
-        prepareBoard();
+        prepareBoardE();
         showElement();
     } )
 }
@@ -109,19 +151,6 @@ debugger;
     }
 
 }
-//2tables: CardsColorH CardsColorE -> create element*CardsColorE(H).length
-function prepareBoard () {
-    cards.forEach(card  => {
-        const position = Math.floor(Math.random() * CardsColor.length);
-        card.classList.add(CardsColor[position]);
-        CardsColor.splice(position, 1);
-        })
-        setTimeout(function () {
-        cards.forEach(card => {
-            card.classList.add('hidden')
-            card.addEventListener('click', clickCard)
-        })        
-    }, 500)
-};
+
 
 document.addEventListener('DOMContentLoaded', main);
