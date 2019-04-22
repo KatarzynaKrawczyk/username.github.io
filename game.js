@@ -1,26 +1,20 @@
 let timesClicked = 0;
 const CardsColor = [
-    "star", "blue", 
-   
+    "star", "blue",    
 ];
-
-
-//2tables: CardsColorH CardsColorE -> create element*CardsColorE(H).length
-function createBoard(){
-    cards.forEach(card  => {
-        const position = Math.floor(Math.random() * CardsColor.length);
-        card.classList.add(CardsColor[position]);
-        console.log(CardsColor);
-
-        CardsColor.splice(position, 1);
-        console.log(CardsColor);
-        })
-        setTimeout(function () {
-        cards.forEach(card => {
-            card.classList.add('hidden')
-            card.addEventListener('click', clickCard)
-        })        
-    }, 2000)
+function main (){
+    const $startButtonHard = document.getElementById('startButtonHard');
+    $startButtonHard.addEventListener('click', function(){
+        hideElement();
+        prepareBoardH();
+        showElement();
+    } )
+    const $startButtonEasy = document.getElementById('startButtonEasy');
+    $startButtonEasy.addEventListener('click', function(){
+        hideElement();
+        prepareBoardE();
+        showElement();
+    } )
 };
 
 function prepareBoardH () {
@@ -42,21 +36,23 @@ function prepareBoardE () {
    
 };
 
+//2tables: CardsColorH CardsColorE -> create element*CardsColorE(H).length
+function createBoard(){
+    cards.forEach(card  => {
+        const position = Math.floor(Math.random() * CardsColor.length);
+        card.classList.add(CardsColor[position]);
+        console.log(CardsColor);
 
-function main (){
-    const $startButtonHard = document.getElementById('startButtonHard');
-    $startButtonHard.addEventListener('click', function(){
-        hideElement();
-        prepareBoardH();
-        showElement();
-    } )
-    const $startButtonEasy = document.getElementById('startButtonEasy');
-    $startButtonEasy.addEventListener('click', function(){
-        hideElement();
-        prepareBoardE();
-        showElement();
-    } )
-}
+        CardsColor.splice(position, 1);
+        console.log(CardsColor);
+        })
+        setTimeout(function () {
+        cards.forEach(card => {
+            card.classList.add('hidden')
+            card.addEventListener('click', clickCard)
+        })        
+    }, 2000)
+};
 function hideElement(){
     let introSection = document.getElementById('intro');
     introSection.classList.add('d-none');
