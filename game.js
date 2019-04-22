@@ -1,50 +1,52 @@
 let timesClicked = 0;
-const CardsColor = [
-    "star", "blue",    
-];
+let cards, cardsAmmount, clickCounter, gameTimeCounter;
+const activeCards = [];
+const startTime = new Date().getTime();
+const CardsColor = [ "star", "blue", ];
+const $board = document.getElementById('board2');
 function main (){
-    const $startButtonHard = document.getElementById('startButtonHard');
-    $startButtonHard.addEventListener('click', function(){
-        hideElement();
-        prepareBoardH();
-        showElement();
-    } )
-    const $startButtonEasy = document.getElementById('startButtonEasy');
-    $startButtonEasy.addEventListener('click', function(){
-        hideElement();
-        prepareBoardE();
-        showElement();
-    } )
+    prepareDOMElemens();
+    prepareDOMEvents();
 };
-
-function prepareBoardH () {
-    
-    CardsColor.push( "aqua", "gold", "gray", "black");
+//DOM
+function hideElement(){
+    let introSection = document.getElementById('intro');
+    introSection.classList.add('d-none');
+};
+function prepareBoard(){
     const CardsColorCopy = CardsColor.slice();
     Array.prototype.push.apply(CardsColor,CardsColorCopy);
-    console.log(CardsColor);
+    cardsAmmount = CardsColor.length;
+    console.log(cardsAmmount);
+    createDOMElement(cardsAmmount);
     createBoard();
-    debugger;
-  
 };
-function prepareBoardE () {
-    const CardsColorCopy = CardsColor.slice();
-    Array.prototype.push.apply(CardsColor,CardsColorCopy);
-    console.log(CardsColor);
-    createBoard();
-    debugger;
+function createDOMElement(cardsAmmount){
    
+    $fragment = document.createDocumentFragment();
+    for (let i=0; i<cardsAmmount; i++ ) {
+        const back = document.createElement('div');
+        back.classList.add('card', 'mx-auto');
+        const backElement = document.createElement('div');
+        backElement.classList.add('card-body');
+        back.appendChild(backElement);
+        $fragment.appendChild(back);
+    }    
+    $board.appendChild($fragment); //wstawiam 12div
+    
 };
-
-//2tables: CardsColorH CardsColorE -> create element*CardsColorE(H).length
 function createBoard(){
+    cards = document.getElementsByClassName('card-body');
+    cards = [...cards]; //change to array
+    let activeCard = '';
+    const gamePairs = cards.length/2;
+    let gameResult = 0;
+
     cards.forEach(card  => {
         const position = Math.floor(Math.random() * CardsColor.length);
         card.classList.add(CardsColor[position]);
-        console.log(CardsColor);
 
         CardsColor.splice(position, 1);
-        console.log(CardsColor);
         })
         setTimeout(function () {
         cards.forEach(card => {
@@ -53,32 +55,33 @@ function createBoard(){
         })        
     }, 2000)
 };
-function hideElement(){
-    let introSection = document.getElementById('intro');
-    introSection.classList.add('d-none');
-}
 function showElement(){
     let board = document.getElementById('board');
     board.classList.remove('d-none');
-}
-let clickCounter = document.getElementById('clickCounter');
-let gameTimeCounter = document.getElementById('gameTimeCounter');
+};
+function prepareDOMElemens(){
+    const $startButton = document.getElementById ('intro');
+    $startButton.addEventListener('click', function(){
+        hideElement();
+        if (event.target.id===('startButtonHard')){
+                CardsColor.push( "aqua", "gold", "gray", "black");
+            };
+        prepareBoard();
+        showElement();
+    })
+};
+//DOM
+function prepareDOMEvents(){
+    clickCounter = document.getElementById('clickCounter');
+    gameTimeCounter = document.getElementById('gameTimeCounter');
+    $board.addEventListener('click', checkCard );
+};
+function checkCard(){
+console.log(event.target.classList[1]);
+let Guess1 = event.target.classList[1];
 
-let cards = document.getElementsByClassName('card-body');
-
-cards = [...cards];
-console.log(cards);
-console.log(cards.length);
-//change to table
-
-const startTime = new Date().getTime();
-
-let activeCard = '';
-const activeCards = [];
-
-const gamePairs = cards.length/2;
-let gameResult = 0;
-
+//here I ended
+};
 function clickCard (){
     activeCard = this;
 
@@ -113,22 +116,15 @@ function clickCard (){
                     gameTimeCounter.innerHTML = (gameResult+' paired');
 //end of game                    
                     if(cards.length ===      0){
-                 //    (gameResult == gamePairs){
-                        
                         const endTime = new Date().getTime();
                         let gameTime = (endTime-startTime)/1000;
-                     
-                        console.log(gameTime);
-                       
-                        function Round(n, k)
-                            {
-                                var factor = Math.pow(10, k);
-                                return Math.round(n*factor)/factor;
+                        function Round(n, k) {   
+                            var factor = Math.pow(10, k);
+                            return Math.round(n*factor)/factor;
                             }
-                            
                             gameTimeCounter.innerHTML = ('your time score is '+(Round(gameTime, 0))+' seconds' );
-debugger;
-    //                    swal(`You Won! your time score is ${gameTime} seconds`);
+                            board.classList.remove('d-none');
+debugger;               
                         location.reload();
                     }
                 }
