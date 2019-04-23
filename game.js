@@ -51,9 +51,9 @@ function createBoard(){
         setTimeout(function () {
         cards.forEach(card => {
             card.classList.add('hidden')
-            card.addEventListener('click', clickCard)
+         //   card.addEventListener('click', clickCard)
         })        
-    }, 2000)
+    }, 200)
 };
 function showElement(){
     let board = document.getElementById('board');
@@ -76,18 +76,22 @@ function prepareDOMEvents(){
     gameTimeCounter = document.getElementById('gameTimeCounter');
     $board.addEventListener('click', checkCard );
 };
-function checkCard(){
+function checkCard (){
 console.log(event.target.classList[1]);
+if (event.target.classList.contains ('card-body')) {
+    clickCard ();
+};
 let Guess1 = event.target.classList[1];
 
-//here I ended
+//here I ended up down functions switched
 };
 function clickCard (){
-    activeCard = this;
+    
+    let activeCard = event.target;
 
     if (activeCard == activeCards[0]) {return;};
-
-    activeCard.classList.remove('hidden'); 
+    
+    activeCard.classList.remove('hidden');
     timesClicked++;
     clickCounter.innerHTML = (timesClicked+' times');
 
@@ -107,28 +111,35 @@ function clickCard (){
                 if (activeCards[0].className == activeCards[1].className){
                     activeCards.forEach(card => card.classList.add('off'));
                     gameResult=+1;
-                    console.log(gameResult+' paired');
+                   
 //mute paired cards
                     cards = cards.filter(card => !card.classList.contains('off'));
-                    
+                    gameTimeCounter.innerHTML = (cards.length+' cards left');
                     console.log(cards.length+' cards left');
                     console.log(activeCards.length+' cards active');
-                    gameTimeCounter.innerHTML = (gameResult+' paired');
+                
 //end of game                    
-                    if(cards.length ===      0){
+                    if(cards.length === 0){
                         const endTime = new Date().getTime();
                         let gameTime = (endTime-startTime)/1000;
                         function Round(n, k) {   
                             var factor = Math.pow(10, k);
                             return Math.round(n*factor)/factor;
                             }
+                         
                             gameTimeCounter.innerHTML = ('your time score is '+(Round(gameTime, 0))+' seconds' );
                             board.classList.remove('d-none');
-debugger;               
+                          
+                    setTimeout (function(){
                         location.reload();
+                    },8000)
                     }
                 }
                 else {
+                    setTimeout (function(){
+                    gameTimeCounter.innerHTML = ('try again');
+                },200);
+                gameTimeCounter.innerHTML = ('');
                     console.log('try again');
                     activeCards.forEach(card => card.classList.add('hidden'))  
                 }
