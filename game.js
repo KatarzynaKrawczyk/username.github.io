@@ -1,5 +1,6 @@
+
 let timesClicked = 0;
-let cards, cardsAmmount, clickCounter, gameTimeCounter;
+let cards, cardsAmmount, clickCounter, gameTimeCounter, $startButton;
 const activeCards = [];
 const startTime = new Date().getTime();
 const CardsColor = [ "star", "blue", ];
@@ -48,19 +49,19 @@ function createBoard(){
 
         CardsColor.splice(position, 1);
         })
-        setTimeout(function () {
+  //      setTimeout(function () {
         cards.forEach(card => {
             card.classList.add('hidden')
          //   card.addEventListener('click', clickCard)
         })        
-    }, 200)
+ //   }, 200)
 };
 function showElement(){
     let board = document.getElementById('board');
     board.classList.remove('d-none');
 };
 function prepareDOMElemens(){
-    const $startButton = document.getElementById ('intro');
+    $startButton = document.getElementById ('intro');
     $startButton.addEventListener('click', function(){
         hideElement();
         if (event.target.id===('startButtonHard')){
@@ -77,14 +78,14 @@ function prepareDOMEvents(){
     $board.addEventListener('click', checkCard );
 };
 function checkCard (){
-console.log(event.target.classList[1]);
-if (event.target.classList.contains ('card-body')) {
-    clickCard ();
+    if (event.target.classList.contains ('off')){       
+        return;
+    }
+    else if (event.target.classList.contains ('card-body')) {
+        clickCard ();
+    }
 };
-let Guess1 = event.target.classList[1];
 
-//here I ended up down functions switched
-};
 function clickCard (){
     
     let activeCard = event.target;
@@ -105,19 +106,16 @@ function clickCard (){
     else {
         console.log('after 2 click');
         cards.forEach (card =>
-            card.removeEventListener('click', clickCard))
+            card.removeEventListener('click', clickCard));
             activeCards[1] = activeCard;
             setTimeout(function(){
                 if (activeCards[0].className == activeCards[1].className){
                     activeCards.forEach(card => card.classList.add('off'));
                     gameResult=+1;
-                   
 //mute paired cards
                     cards = cards.filter(card => !card.classList.contains('off'));
                     gameTimeCounter.innerHTML = (cards.length+' cards left');
-                    console.log(cards.length+' cards left');
-                    console.log(activeCards.length+' cards active');
-                
+            //        console.log(cards.length+' cards left');
 //end of game                    
                     if(cards.length === 0){
                         const endTime = new Date().getTime();
@@ -125,31 +123,29 @@ function clickCard (){
                         function Round(n, k) {   
                             var factor = Math.pow(10, k);
                             return Math.round(n*factor)/factor;
-                            }
-                         
-                            gameTimeCounter.innerHTML = ('your time score is '+(Round(gameTime, 0))+' seconds' );
-                            board.classList.remove('d-none');
-                          
-                    setTimeout (function(){
-                        location.reload();
-                    },8000)
+                            }          
+                        gameTimeCounter.innerHTML = ('your time score is '+(Round(gameTime, 0))+' seconds !' );
+                       // board.classList.remove('d-none');
+                       const $playAgainButton = document.getElementById('playAgainButton');
+                       $playAgainButton.classList.remove('d-none');
+                       $playAgainButton.addEventListener('click',function(){
+                           location.reload();
+                            });
                     }
                 }
+//if not nde of game
                 else {
                     setTimeout (function(){
                     gameTimeCounter.innerHTML = ('try again');
-                },200);
-                gameTimeCounter.innerHTML = ('');
-                    console.log('try again');
+                     },200);
+                    gameTimeCounter.innerHTML = ('');
                     activeCards.forEach(card => card.classList.add('hidden'))  
                 }
                 activeCard = "";
                 activeCards.length = 0;
-                cards.forEach(card => card.addEventListener('click', clickCard));
+            //    cards.forEach(card => card.addEventListener('click', clickCard));
             },300)
     }
-
 }
-
 
 document.addEventListener('DOMContentLoaded', main);
